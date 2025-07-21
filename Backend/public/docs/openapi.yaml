@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: My Product API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000/api
+
+paths:
+  /products:
+    get:
+      tags:
+        - Products
+      summary: Get products with search, filter, sort and pagination
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          description: Search by product name
+          required: false
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Filter by category slug
+          required: false
+          schema:
+            type: string
+        - name: min_price
+          in: query
+          description: Minimum price
+          required: false
+          schema:
+            type: number
+        - name: max_price
+          in: query
+          description: Maximum price
+          required: false
+          schema:
+            type: number
+        - name: sort
+          in: query
+          description: Sort by price or name
+          required: false
+          schema:
+            type: string
+            enum: [price_asc, price_desc, name_asc, name_desc]
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Limit items per page
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+      responses:
+        '201':
+          description: Register successful
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        category:
+          type: object
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+        variants:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              sku:
+                type: string
+              price:
+                type: number
+              stock:
+                type: integer
