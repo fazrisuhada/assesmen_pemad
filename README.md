@@ -1,4 +1,4 @@
-# 📦 Product & Category Listing
+# 📦 Products Listing
 
 ## Deskripsi
 
