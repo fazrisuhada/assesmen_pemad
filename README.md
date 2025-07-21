@@ -65,3 +65,8 @@ npm run dev
 
 ---
 
+## 📄 Dokumentasi API dengan Swagger
+
+Dokumentasi API tersedia di file:  
+```plaintext
+/public/docs/openapi.yml
