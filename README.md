@@ -24,7 +24,7 @@ Modul katalog produk dengan fitur filter dinamis, pencarian, kategori berjenjang
 ### 1️⃣ Clone repository
 
 ```bash
-git clone https://github.com/yourusername/assesmen_pemad.git
+git clone https://github.com/fazrisuhada/assesmen_pemad.git
 cd your-repo-name
 ```
 
